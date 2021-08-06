@@ -2,7 +2,10 @@ package com.capiter.base.di
 
 import com.capiter.base.ui.main.ProductActivity
 import dagger.Component
+import javax.inject.Singleton
 
+
+@Singleton
 @Component(
     modules = [
         NetworkModule::class,

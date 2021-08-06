@@ -1,8 +1,9 @@
 package com.capiter.base.ui.main
+
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
-import com.capiter.base.data.repo.UserRepo
+import com.capiter.base.data.model.ProductItem
 import com.capiter.base.databinding.ActivityProductBinding
 import com.capiter.base.ui.adapter.ProductAdapter
 import com.capiter.base.utils.AutoDisposable
@@ -13,9 +14,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 
-class ProductActivity : BaseActivity() {
-    @Inject
-    lateinit var userRepo: UserRepo
+class ProductActivity : BaseActivity(), ProductAdapter.ProductListener {
 
     @Inject
     lateinit var mAdapter: ProductAdapter
@@ -29,7 +28,7 @@ class ProductActivity : BaseActivity() {
 
     private lateinit var viewModel: ProductActivityViewModel
 
-    private lateinit var mBinding : ActivityProductBinding
+    private lateinit var mBinding: ActivityProductBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +39,7 @@ class ProductActivity : BaseActivity() {
         autoDisposable.bindTo(this.lifecycle)
 
         mBinding.mProductRV.adapter = mAdapter
+        mAdapter.attachListener(this)
 
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(ProductActivityViewModel::class.java)
@@ -52,11 +52,15 @@ class ProductActivity : BaseActivity() {
                 mAdapter.addData(it)
             },
             {
-                Log.i("cap", "getProducts: "+it.message)
+                Log.i("cap", "getProducts: " + it.message)
 
             }
         ).addTo(autoDisposable)
 
+    }
+
+    override fun onCartClicked(item: ProductItem) {
+        viewModel.updateCart(item)
     }
 
 }
