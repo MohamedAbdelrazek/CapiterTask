@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import io.reactivex.rxjava3.disposables.Disposable
 
+
 fun AppCompatActivity.setUpActionBar(toolbar: Toolbar) {
     this.setSupportActionBar(toolbar)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -47,6 +48,11 @@ fun View.gone() {
 }
 
 // to load images url into Images
-fun ImageView.load(url: String) {
-    Glide.with(this).load(url).into(this)
+fun ImageView.load(url: String?) {
+    url?.let {
+        Glide.with(this).load(it).into(this)
+    }
+
 }
+
+

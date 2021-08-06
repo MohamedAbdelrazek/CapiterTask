@@ -1,6 +1,6 @@
 package com.capiter.base.di
 
-import com.capiter.base.ui.main.MainActivity
+import com.capiter.base.ui.main.ProductActivity
 import dagger.Component
 
 @Component(
@@ -10,6 +10,6 @@ import dagger.Component
         ViewModelFactoryModule::class]
 )
 interface AppComponent {
-    fun inject(mainActivity: MainActivity)
+    fun inject(productActivity: ProductActivity)
 
 }
