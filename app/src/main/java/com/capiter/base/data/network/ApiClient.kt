@@ -21,4 +21,11 @@ interface ApiClient {
         @Header("x-apikey") xApiToken: String = Constants.xApiToken,
         @Body orderList: List<OrderItem>
     ): Flowable<ArrayList<ProductItem>>
+
+
+    @GET("orders")
+    fun getOrders(
+        @Header("x-apikey") xApiToken: String = Constants.xApiToken,
+    ): Single<ArrayList<OrderItem>>
+
 }

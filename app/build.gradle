@@ -9,12 +9,11 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.get.base"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        applicationId   "com.get.base"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -34,6 +33,16 @@ android {
 
     buildFeatures {
         dataBinding = true
+    }
+    flavorDimensions "default"
+    productFlavors {
+        user {
+            applicationIdSuffix = ".user"
+        }
+        delivery {
+            applicationIdSuffix = ".delivery"
+        }
+
     }
 }
 

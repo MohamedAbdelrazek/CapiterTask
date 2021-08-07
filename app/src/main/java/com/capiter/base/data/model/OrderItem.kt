@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName
 data class OrderItem(
     @SerializedName("order-name")
     val orderName: String? = null,
+    @SerializedName("_id")
+    val id: String? = null,
     @SerializedName("product-id")
     val productId: String? = null,
     @SerializedName("product-image-url")

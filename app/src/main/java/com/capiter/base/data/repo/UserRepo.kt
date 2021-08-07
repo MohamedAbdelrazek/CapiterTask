@@ -22,6 +22,10 @@ class UserRepo @Inject constructor(
         apiClient.getProducts().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
+    fun getOrders(): Single<ArrayList<OrderItem>> =
+        apiClient.getOrders().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
 
     fun sendOrders(orderList: List<OrderItem>): Flowable<ArrayList<ProductItem>> =
         apiClient.sendOrders(orderList = orderList)

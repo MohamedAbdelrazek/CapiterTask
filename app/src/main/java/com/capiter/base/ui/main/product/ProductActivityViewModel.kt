@@ -1,4 +1,4 @@
-package com.capiter.base.ui.main
+package com.capiter.base.ui.main.product
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
