@@ -4,17 +4,19 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.capiter.base.data.model.ProductItem
+import com.capiter.base.data.repo.UserRepo
 import com.capiter.base.databinding.ActivityProductBinding
 import com.capiter.base.ui.adapter.ProductAdapter
-import com.capiter.base.utils.AutoDisposable
-import com.capiter.base.utils.BaseActivity
-import com.capiter.base.utils.Constants
-import com.capiter.base.utils.addTo
+import com.capiter.base.utils.*
 import javax.inject.Inject
 import javax.inject.Named
 
 
 class ProductActivity : BaseActivity(), ProductAdapter.ProductListener {
+
+
+    @Inject
+    lateinit var userRepo: UserRepo
 
     @Inject
     lateinit var mAdapter: ProductAdapter
@@ -43,19 +45,24 @@ class ProductActivity : BaseActivity(), ProductAdapter.ProductListener {
 
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(ProductActivityViewModel::class.java)
+
+        mBinding.cartIV.click {
+            openActivity<CartActivity>()
+        }
         getProducts()
     }
+
 
     private fun getProducts() {
         viewModel.getProducts().subscribe(
             {
-                mAdapter.addData(it)
+                mAdapter.addData(it, userRepo)
             },
             {
                 Log.i("cap", "getProducts: " + it.message)
 
             }
-        ).addTo(autoDisposable)
+        )
 
     }
 
@@ -63,4 +70,11 @@ class ProductActivity : BaseActivity(), ProductAdapter.ProductListener {
         viewModel.updateCart(item)
     }
 
+
+    override fun onRestart() {
+        super.onRestart()
+        val intent = intent
+        finish()
+        startActivity(intent)
+    }
 }

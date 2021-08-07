@@ -1,7 +1,6 @@
 package com.capiter.base.data.repo
 
 import android.content.SharedPreferences
-import android.util.Log
 import com.capiter.base.data.local.AppDao
 import com.capiter.base.data.model.ProductItem
 import com.capiter.base.data.network.ApiClient
@@ -22,13 +21,14 @@ class UserRepo @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
 
 
-    fun insertNewProduct(item: ProductItem) {
-        appDao.insertProduct(item).subscribeOn(Schedulers.io()).subscribe({
-            Log.i("cap", "insert: ")
-        }, {
-            Log.i("cap", "Error: "+it.message)
-        })
-    }
+    fun insertNewProduct(item: ProductItem) =appDao.insertProduct(item)
+
+    fun getCartProduct() = appDao.getCartProduct()
+
+    fun removeItemFromCart(itemID: String) = appDao.deleteItemFromCart(itemID)
+
+
+    fun getCartItem(id:String) = appDao.getCartItem(id)
 }
 
 

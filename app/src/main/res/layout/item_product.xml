@@ -10,8 +10,8 @@
             type="com.capiter.base.data.model.ProductItem" />
 
         <variable
-            name="mListener"
-            type="com.capiter.base.ui.adapter.ProductAdapter.ProductListener" />
+            name="mCount"
+            type="Integer" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -69,9 +69,10 @@
                 android:paddingHorizontal="10dp"
                 android:scrollHorizontally="true"
                 android:textColor="#000000"
+                android:text= "@{@string/currencyFormat(mProductItem.price)}"
                 app:layout_constraintEnd_toEndOf="@+id/titleTV"
                 app:layout_constraintTop_toBottomOf="@+id/titleTV"
-                tools:text="@{mProductItem.price}" />
+                  />
 
             <View
                 android:id="@+id/view2"
@@ -89,7 +90,6 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/bg_rounded_blue"
-
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
                 android:text="أضف إلى السلة"
@@ -110,7 +110,7 @@
                 android:maxLines="2"
                 android:paddingHorizontal="10dp"
                 android:scrollHorizontally="true"
-                android:text="@{Integer.toString(mProductItem.productQuantity)}"
+                android:text="@{Integer.toString(mCount)}"
                 android:textColor="#000000"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/addToCartButton"
