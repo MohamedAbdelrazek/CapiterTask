@@ -1,4 +1,4 @@
-package com.capiter.base.ui.main
+package com.capiter.base.ui.main.order
 
 import androidx.lifecycle.ViewModel
 import com.capiter.base.data.repo.UserRepo

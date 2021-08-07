@@ -3,7 +3,7 @@ package com.capiter.base.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.capiter.base.data.repo.UserRepo
-import com.capiter.base.ui.main.OrderViewModel
+import com.capiter.base.ui.main.order.OrderViewModel
 import com.capiter.base.ui.main.product.ProductActivityViewModel
 import com.capiter.base.utils.Constants
 import dagger.Module

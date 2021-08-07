@@ -1,4 +1,4 @@
-package com.capiter.base.ui.main
+package com.capiter.base.ui.main.order
 
 import android.os.Bundle
 import android.util.Log
@@ -43,8 +43,8 @@ class OrdersActivity : BaseActivity() {
 
     private fun getOrders() {
         viewModel.getOrders().subscribe(
-            {
-                val map = it?.groupBy { it?.orderName }
+            {arrList->
+                val map = arrList?.groupBy { it?.orderName }
                 mAdapter.addData(map,map?.keys?.toTypedArray())
             },
             {

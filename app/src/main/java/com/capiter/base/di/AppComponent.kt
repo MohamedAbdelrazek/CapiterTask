@@ -1,6 +1,6 @@
 package com.capiter.base.di
 
-import com.capiter.base.ui.main.OrdersActivity
+import com.capiter.base.ui.main.order.OrdersActivity
 import com.capiter.base.ui.main.product.CartActivity
 import com.capiter.base.ui.main.product.ProductActivity
 import dagger.Component
