@@ -19,9 +19,9 @@
         android:layout_gravity="start"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-        android:elevation="32dp"
+        android:elevation="24dp"
         app:cardCornerRadius="0dp"
-        app:cardElevation="32dp">
+        app:cardElevation="24dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

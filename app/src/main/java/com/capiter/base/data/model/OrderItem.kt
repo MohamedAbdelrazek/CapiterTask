@@ -13,7 +13,7 @@ data class OrderItem(
     @SerializedName("product-name")
     val productName: String? = null,
     @SerializedName("product-price")
-    val productPrice: Int? = null,
+    val productPrice: String? = null,
     @SerializedName("product-quantity")
     val productQuantity: Int? = null
 )

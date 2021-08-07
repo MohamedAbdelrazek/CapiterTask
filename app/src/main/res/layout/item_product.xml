@@ -10,7 +10,7 @@
             type="com.capiter.base.data.model.ProductItem" />
 
         <variable
-            name="mCount"
+                name="mCount"
             type="Integer" />
     </data>
 

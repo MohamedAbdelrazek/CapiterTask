@@ -1,11 +1,19 @@
 package com.capiter.base.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.capiter.base.databinding.ActivityConfirmOrderBinding
+import com.capiter.base.utils.BaseActivity
 
-class ConfirmOrderActivity : AppCompatActivity() {
+class ConfirmOrderActivity : BaseActivity() {
+
+    private lateinit var mBinding: ActivityConfirmOrderBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_confirm_order)
+        mBinding = ActivityConfirmOrderBinding.inflate(layoutInflater)
+        setContentView(mBinding.root)
+        mBinding.activity = this
     }
+
+
 }

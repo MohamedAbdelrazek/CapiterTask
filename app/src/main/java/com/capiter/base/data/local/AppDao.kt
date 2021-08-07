@@ -20,9 +20,15 @@ interface AppDao {
 
 
     @Query("DELETE FROM PRODUCT_TABLE WHERE id = :itemID")
-    fun deleteItemFromCart(itemID: String) : Completable
+    fun deleteItemFromCart(itemID: String): Completable
 
 
     @Query("SELECT * FROM PRODUCT_TABLE WHERE id=:id ")
     fun getCartItem(id: String): Flowable<ProductItem>
+
+
+    @Query("DELETE FROM PRODUCT_TABLE")
+    fun deleteOrders(): Completable
+
+
 }

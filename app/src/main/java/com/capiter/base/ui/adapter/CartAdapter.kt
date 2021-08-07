@@ -37,14 +37,10 @@ class CartAdapter @Inject constructor() : RecyclerView.Adapter<CartAdapter.ViewH
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ProductItem?) {
             binding.deleteIV.click  {
-                item?.productQuantity?.minus(1)?.let {
-                    item?.productQuantity =it
-                }
-                notifyItemChanged(adapterPosition,item)
                 item?.let {
                     listener?.removeItemFromCart(it.id)
                 }
-
+                notifyItemChanged(adapterPosition,item)
             }
             binding.mProductItem = item
             binding.executePendingBindings()

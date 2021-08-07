@@ -1,18 +1,21 @@
 package com.capiter.base.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import com.capiter.base.data.model.OrderItem
 import com.capiter.base.databinding.ActivityCartBinding
 import com.capiter.base.ui.adapter.CartAdapter
-import com.capiter.base.utils.AutoDisposable
-import com.capiter.base.utils.BaseActivity
-import com.capiter.base.utils.Constants
+import com.capiter.base.utils.*
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 import javax.inject.Named
 
 class CartActivity : BaseActivity(), CartAdapter.CartListener {
+
+    private var mOrderName: String = ""
 
     @Inject
     lateinit var mAdapter: CartAdapter
@@ -41,7 +44,76 @@ class CartActivity : BaseActivity(), CartAdapter.CartListener {
 
         mAdapter.attachListener(this)
         getCartItems()
+
+        mBinding.confirmOrderTV.click {
+            mOrderName = mBinding.orderNameET.text.toString()
+            if (mOrderName.isEmpty()) {
+                mBinding.orderNameTIL.error = "الرجاء ادخال اسم الطلب"
+            } else {
+                mBinding.orderNameTIL.error = null
+                prepareOrderForSubmission()
+            }
+
+        }
     }
+
+    private fun prepareOrderForSubmission() {
+        viewModel.getCartItems()?.subscribeOn(Schedulers.io())?.observeOn(AndroidSchedulers.mainThread())?.concatMapSingle { list ->
+            Observable.fromIterable(list).map {
+                OrderItem(
+                    orderName = mOrderName,
+                    productId = it?.id,
+                    productImageUrl = it?.imageUrl,
+                    productName = it?.name,
+                    productPrice = it?.price,
+                    productQuantity = it?.productQuantity
+                )
+            }.toList()
+        }?.take(1)?.subscribe({
+            if (it?.isEmpty() == true) {
+                showToast("اضف بعض المنتجات للاستمرار")
+                mProgress.hide()
+            } else {
+                sendOrders(it)
+            }
+
+
+        },
+            {
+                Log.i("cap", "prepareOrderForSubmission: " + it?.message)
+            })?.addTo(autoDisposable)
+
+    }
+
+    private fun sendOrders(orderList: List<OrderItem>) {
+        mProgress.show()
+        viewModel.sendOrders(orderList).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                {
+                    clearCartAndNavigate()
+                },
+                {
+                    mProgress.hide()
+                    Log.i("cap", "sendOrders: Error " + it?.message)
+                }
+            ).addTo(autoDisposable)
+
+
+    }
+
+    private fun clearCartAndNavigate() {
+        viewModel.deleteOrders().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe({
+                mProgress.hide()
+                openActivity<ConfirmOrderActivity>()
+
+            }, {
+                mProgress.hide()
+                Log.i("cap", "deleteOrders Error: " + it.message)
+            }).addTo(autoDisposable)
+
+    }
+
 
     private fun getCartItems() {
         viewModel.getCartItems()?.subscribeOn(Schedulers.io())
@@ -53,7 +125,7 @@ class CartActivity : BaseActivity(), CartAdapter.CartListener {
     }
 
     override fun removeItemFromCart(itemID: String) {
-         viewModel.removeItemFromCart(itemID)
+        viewModel.removeItemFromCart(itemID)
     }
 
 }

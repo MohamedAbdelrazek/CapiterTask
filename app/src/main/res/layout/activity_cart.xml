@@ -49,6 +49,33 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.Toolbar>
 
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/orderNameTIL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            app:hintAnimationEnabled="false"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/orderNameET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_bg"
+                android:drawablePadding="12dp"
+                android:hint="اسم الطلب"
+                android:textAlignment="viewEnd"
+                android:inputType="textPersonName"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                android:textColor="@color/color_black"
+                android:textColorHint="#8B000000" />
+        </com.google.android.material.textfield.TextInputLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mProductRV"
             android:layout_width="0dp"
@@ -62,7 +89,8 @@
             app:layout_constraintBottom_toTopOf="@+id/confirmOrderTV"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/orderNameTIL"
             app:layout_constraintVertical_bias="0.501"
             tools:listitem="@layout/item_cart" />
 
